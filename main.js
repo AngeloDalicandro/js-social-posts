@@ -9,7 +9,7 @@
 // - immagine (non tutti i post devono avere una immagine),
 // - numero di likes.
 
-
+// Creo l'array con i post
 const socialPosts = [
     {
         id: 1,
@@ -18,7 +18,7 @@ const socialPosts = [
         date: '06/20/2022',
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: 'https://unsplash.it/600/300?image=171',
-        likes: '80',
+        likes: 80,
     },
     {
         id: 2,
@@ -27,7 +27,7 @@ const socialPosts = [
         date: '06/11/2022',
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: 'https://unsplash.it/600/300?image=124',
-        likes: '80',
+        likes: 120,
     },
     {
         id: 3,
@@ -36,43 +36,68 @@ const socialPosts = [
         date: '05/27/2022',
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: null,
-        likes: '27',
+        likes: 27,
     }
 ]
 
+// Seleziono nel DOM il container dove stampare i post
 const postContainer = document.getElementById('container');
-console.log (postContainer)
-for(let i = 0; i < socialPosts.length; i++){
-const thisPost = socialPosts[i];
 
-postContainer.innerHTML += `<div class="post">
-                                <div class="post__header">
-                                    <div class="post-meta">                    
-                                        <div class="post-meta__icon">
-                                            <img class="profile-pic" src="${thisPost.profilePic}" alt="Phil Mangione">                    
+// Con un ciclo for stampo i post nel DOM
+for(let i = 0; i < socialPosts.length; i++){
+    const thisPost = socialPosts[i];
+
+    postContainer.innerHTML += `<div class="post">
+                                    <div class="post__header">
+                                        <div class="post-meta">                    
+                                            <div class="post-meta__icon">
+                                                <img class="profile-pic" src="${thisPost.profilePic}" alt="Phil Mangione">                    
+                                            </div>
+                                            <div class="post-meta__data">
+                                                <div class="post-meta__author">${thisPost.name}</div>
+                                                <div class="post-meta__time">${thisPost.date}</div>
+                                            </div>                    
                                         </div>
-                                        <div class="post-meta__data">
-                                            <div class="post-meta__author">${thisPost.name}</div>
-                                            <div class="post-meta__time">${thisPost.date}</div>
-                                        </div>                    
                                     </div>
-                                </div>
-                                <div class="post__text">${thisPost.text}</div>
-                                <div class="post__image">
-                                    <img src="${thisPost.img}" alt="">
-                                </div>
-                                <div class="post__footer">
-                                    <div class="likes js-likes">
-                                        <div class="likes__cta">
-                                            <a class="like-button  js-like-button" href="#" data-postid="1">
-                                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                                                <span class="like-button__label">Mi Piace</span>
-                                            </a>
-                                        </div>
-                                        <div class="likes__counter">
-                                            Piace a <b id="like-counter-1" class="js-likes-counter">${thisPost.likes}</b> persone
-                                        </div>
-                                    </div> 
-                                </div>            
-                            </div>`;
+                                    <div class="post__text">${thisPost.text}</div>
+                                    <div class="post__image">
+                                        <img src="${thisPost.img}" alt="">
+                                    </div>
+                                    <div class="post__footer">
+                                        <div class="likes js-likes">
+                                            <div class="likes__cta">
+                                                <a class="like-button  js-like-button" href="#" data-postid="${thisPost.id}">
+                                                    <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                                    <span class="like-button__label">Mi Piace</span>
+                                                </a>
+                                            </div>
+                                            <div class="likes__counter">
+                                                Piace a <b id="like-counter-${thisPost.id}" class="js-likes-counter">${thisPost.likes}</b> persone
+                                            </div>
+                                        </div> 
+                                    </div>            
+                                </div>`;
+
+}
+
+// Seleziono i bottoni del like
+const likeBtn = document.querySelectorAll('.js-like-button');
+
+// Con un secondo ciclo for imposto cosa accade ad ogni click
+for(let i = 0; i < socialPosts.length; i++){
+    likeBtn[i].addEventListener('click',
+    function(event) {
+        const thisPost = socialPosts[i];
+        event.preventDefault();
+        
+        // Seleziono il counter dei like
+        let likeCounter = document.getElementById(`like-counter-${thisPost.id}`)
+        
+        // Aggiungo la classe per modificarne il colore al click
+        likeBtn[i].classList.add('like-button--liked');
+
+        // Incremento il counter
+        likeCounter.innerHTML = parseInt(likeCounter.innerHTML) + 1;
+    }
+    )
 }
