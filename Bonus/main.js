@@ -35,7 +35,7 @@ const socialPosts = [
     {
         id: 3,
         name: 'Angelo Dalicandro',
-        profilePic: 'https://unsplash.it/300/300?image=3',
+        profilePic: null,
         date: '05-27-2022',
         text: 'Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.',
         img: null,
@@ -59,7 +59,7 @@ for(let i = 0; i < socialPosts.length; i++){
                                     <div class="post__header">
                                         <div class="post-meta">                    
                                             <div class="post-meta__icon">
-                                                <img class="profile-pic" src="${thisPost.profilePic}" alt="Phil Mangione">                    
+                                                ${thisPost.profilePic != null ? `<img class="profile-pic" src="${thisPost.profilePic}" alt="Phil Mangione">` : `<div class="profile-pic-default"><span>${getInitialLetters(thisPost.name)}</span></div>`}           
                                             </div>
                                             <div class="post-meta__data">
                                                 <div class="post-meta__author">${thisPost.name}</div>
