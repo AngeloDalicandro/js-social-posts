@@ -100,12 +100,16 @@ for(let i = 0; i < socialPosts.length; i++){
         
         // Seleziono il counter dei like
         let likeCounter = document.getElementById(`like-counter-${thisPost.id}`)
-        
-        // Aggiungo la classe per modificarne il colore al click
-        likeBtn[i].classList.add('like-button--liked');
 
-        // Incremento il counter
-        likeCounter.innerHTML = parseInt(likeCounter.innerHTML) + 1;
+        // Incremento o decremento il counter
+        if(likeBtn[i].classList.contains('like-button--liked')) {
+            likeCounter.innerHTML = parseInt(likeCounter.innerHTML) -1;
+        } else {
+            likeCounter.innerHTML = parseInt(likeCounter.innerHTML) + 1;
+        }
+        
+        // Aggiungo e rimuovo se già aggiunta la classe per modificarne il colore al click
+        likeBtn[i].classList.toggle('like-button--liked');
     }
     )
 }
