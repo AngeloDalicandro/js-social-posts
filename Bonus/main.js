@@ -43,6 +43,11 @@ const socialPosts = [
     }
 ]
 
+// Cambio il formato delle date
+for(let i = 0; i < socialPosts.length; i++) {
+    socialPosts[i].date = getEuDate(socialPosts[i].date)
+}
+
 // Seleziono nel DOM il container dove stampare i post
 const postContainer = document.getElementById('container');
 
@@ -125,3 +130,4 @@ function getInitialLetters(aString) {
     
     return stringSplitted[0][0] + stringSplitted[1][0];
 }
+
